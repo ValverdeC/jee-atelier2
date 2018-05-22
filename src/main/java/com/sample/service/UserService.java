@@ -28,6 +28,19 @@ public class UserService {
 		this.users.add(user);
 		return user;
 	}
+	
+	public User update(User user, int id) {
+		for (int i = 0; i < this.users.size(); i++) {
+		    User usr = this.users.get(i);
+		    if (usr.getId() == id) {
+		    	this.users.set(i, user);
+		    }
+		}
+		return user;
+	}
 
+	public void delete(int id) {
+		this.users.remove(id);
+	}
 
 }

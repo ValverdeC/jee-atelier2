@@ -28,6 +28,16 @@ public class UserController {
 		return this.service.add(user);
 	}
 	
+	@RequestMapping(method=RequestMethod.PUT, value="user/{id}")
+	public User addUser(@RequestBody User user, @PathVariable int id) {
+		return this.service.update(user, id);
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE, value="user/{id}")
+	public void deleteUser(@PathVariable int id) {
+		this.service.delete(id);
+	}
+	
 	@RequestMapping("/users/{id}")
 	public User getUserById(@PathVariable int id) {
 		return this.service.get(id);
