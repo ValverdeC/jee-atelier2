@@ -38,7 +38,7 @@ public class UserController {
 		this.service.delete(id);
 	}
 	
-	@RequestMapping("/users/{id}")
+	@RequestMapping("/user/{id}")
 	public User getUserById(@PathVariable int id) {
 		return this.service.get(id);
 	}
