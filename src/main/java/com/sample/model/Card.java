@@ -1,12 +1,28 @@
 package com.sample.model;
 
+<<<<<<< HEAD
 import javax.persistence.*;
 import java.io.Serializable;
+=======
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+>>>>>>> 16f55d108a079fb59ea936187615c80d44bb1915
 
 @Entity
 @Table(name = "Card")
 public class Card implements Serializable{
 	
+	// Id auto-généré
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,30 +55,14 @@ public class Card implements Serializable{
 	@Column(name = "defence")
 	private int defence;
 	
-	public Card(String name, String description, String imgUrl, String family, String affinity, int hp, int energy,
-			int attack, int defence) {
-		this.name = name;
-		this.description = description;
-		this.imgUrl = imgUrl;
-		this.family = family;
-		this.affinity = affinity;
-		this.hp = hp;
-		this.energy = energy;
-		this.attack = attack;
-		this.defence = defence;
-	}
-	
-	public Card() {
-		this.name = "";
-		this.description = "";
-		this.imgUrl = "";
-		this.family = "";
-		this.affinity = "";
-		this.hp = 0;
-		this.energy = 0;
-		this.attack = 0;
-		this.defence = 0;
-	}
+	/**
+	 * Lien entre une carte et un utilisateur
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user;
 
 	/************************/
 	/*** Getter & Setters ***/
@@ -121,5 +121,11 @@ public class Card implements Serializable{
 	public void setDefence(int defence) {
 		this.defence = defence;
 	}
-
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 }

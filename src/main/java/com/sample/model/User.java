@@ -8,24 +8,15 @@ import javax.persistence.Id;
 @Entity
 public class User {
 	
+	//Id auto-généré
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 	private String name;
 
-	public User() {
-		this.name = "";
-	}
-	
-	public User(String name) {
-		this.name = name;
-	}
-	
-	public User(String name, int id) {
-		this.name = name;
-		this.id = id;
-	}
-
+	/************************/
+	/*** Getter & Setters ***/
+	/************************/
 	public String getName() {
 		return name;
 	}
