@@ -20,10 +20,21 @@ public class CardService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	/**
+	 * Récupération d'une card par son id
+	 * 
+	 * @param id
+	 * @return Card
+	 */
 	public Card getById(int id) {
 		return this.repository.findOne(id);
 	}
 	
+	/**
+	 * Récupération de toutes les card
+	 * 
+	 * @return List<Card>
+	 */
 	public List<Card> getAll() {
 		List<Card> cards = new ArrayList<>();
 		this.repository.findAll()
@@ -31,6 +42,13 @@ public class CardService {
 		return cards;
 	}
 	
+	/**
+	 * Ajout d'une carte pour un utilisateur
+	 * 
+	 * @param card
+	 * @param id
+	 * @return Card
+	 */
 	public Card add(Card card, int id) {
 		 User user = this.userRepository.findOne(id);
 		 if (user != null) {
@@ -41,10 +59,22 @@ public class CardService {
 		 }
 	}
 	
+	/**
+	 * Modification d'une card par son id
+	 * 
+	 * @param card
+	 * @param id
+	 * @return Card
+	 */
 	public Card update(Card card, int id) {
 		return this.repository.save(card);
 	}
 
+	/**
+	 * Suppresion d'une carte par son id
+	 * 
+	 * @param id
+	 */
 	public void delete(int id) {
 		this.repository.delete(id);
 	}
