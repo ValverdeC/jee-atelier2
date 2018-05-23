@@ -2,8 +2,11 @@ package com.sample.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,15 +26,16 @@ public class CardController {
 		return this.service.getAll();
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="card")
-	public Card addCard(@RequestBody Card card) {
-		return this.service.add(card);
-	}
-	
 	@RequestMapping(method=RequestMethod.PUT, value="card/{id}")
 	public Card updateCard(@RequestBody Card card, @PathVariable int id) {
 		return this.service.update(card, id);
 	}
+	
+	@PostMapping("/user/{userId}/card")
+    public Card addCard(@PathVariable (value = "userId") int userId,
+                                 @Valid @RequestBody Card card) {
+        return this.service.add(card, userId);
+    }
 	
 	@RequestMapping(method=RequestMethod.DELETE, value="card/{id}")
 	public void deleteCard(@PathVariable int id) {
