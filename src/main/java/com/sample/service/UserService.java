@@ -11,6 +11,8 @@ import com.sample.repository.UserRepository;
 
 @Service
 public class UserService {
+
+
 	
 	@Autowired
 	private UserRepository repository;
