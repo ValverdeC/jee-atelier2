@@ -13,9 +13,8 @@ function cardSearch(form){
 	var name = form.search.value;
 
 	$.ajax({
-		url: 'http://localhost:8080/WebServiceCard/rest/servicescard/find',
+		url: 'http://localhost:8080/cards/search/' . name,
 		type: 'GET',
-		data: 'name=' + name,
 		//Placer info
 		complete : function(resultat, statut){
 			var card = resultat;

@@ -1,10 +1,8 @@
 package com.sample.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -14,19 +12,39 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Card {
+@Table(name = "Card")
+public class Card implements Serializable{
 	
 	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	@Column(name = "name")
 	private String name;
+
+	@Column(name = "description")
 	private String description;
+
+	@Column(name = "imgUrl")
 	private String imgUrl;
+
+	@Column(name = "family")
 	private String family;
+
+	@Column(name = "affinity")
 	private String affinity;
+
+	@Column(name = "hp")
 	private int hp;
+
+	@Column(name = "energy")
 	private int energy;
+
+	@Column(name = "attack")
 	private int attack;
+
+	@Column(name = "defence")
 	private int defence;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
