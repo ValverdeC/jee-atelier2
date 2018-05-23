@@ -77,4 +77,8 @@ public class CardController {
 		return this.service.getById(id);
 	}
 
+	@RequestMapping("/cards/search/{name}")
+	public Card getCardByName(@PathVariable String name){
+		return this.service.getByName(name);
+	}
 }
