@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Card {
 	
+	// Id auto-généré
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -29,6 +30,9 @@ public class Card {
 	private int attack;
 	private int defence;
 	
+	/**
+	 * Lien entre une carte et un utilisateur
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
