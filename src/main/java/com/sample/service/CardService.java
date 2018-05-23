@@ -37,4 +37,8 @@ public class CardService {
 	public void delete(int id) {
 		this.repository.delete(id);
 	}
+
+    public Card getByName(String name) {
+		return this.repository.findByName(name);
+    }
 }
