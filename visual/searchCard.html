@@ -23,7 +23,7 @@
             <div class="column"></div>
             <div class="column"></div>
             <div class="column">
-                <form class="ui form" action="./getCard" method="GET" name="mySearch">
+                <form class="ui form" action="./getCard" method="GET" id="mySearch" name="mySearch">
                     <h3 class="ui dividing header">Select the Card Name to Search</h3>
                     <div class="two fields">
                         <div class="field">
@@ -33,7 +33,7 @@
                             <div class="ui transparent icon input">
                                 <input type="text" placeholder="Search..." name="search" id="searchId">
                                 <!-- <i class="search link icon"  onclick="mySearch.submit();"></i> -->
-                                 <i class="search link icon"  id="searchButtonId"></i>
+                                 <i class="search link icon"  id="searchButtonId" onclick="cardSearch(mySearch);"></i>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,29 @@ $(document ).ready(function(){
     
 });
 
+function cardSearch(form){
+	var name = form.search.value;
+
+	$.ajax({
+		url: 'http://localhost:8080/WebServiceCard/rest/servicescard/find',
+		type: 'GET',
+		data: 'name=' + name,
+		//Placer info
+		complete : function(resultat, statut){
+			var card = resultat;
+
+			$('#cardFamilyImgId')[0].src = card.imgUrl;
+			$('#cardFamilyNameId')[0].innerText= card.family;
+			$('#cardImgId')[0].src = "" ;
+			$('#cardNameId')[0].innerText = card.name
+			$('#cardDescriptionId')[0].innerText = card.description;
+			$('#cardHPId')[0].innerText = card.hp;
+			$('#cardEnergyId')[0].innerText = card.energy;
+			$('#cardAttackId')[0].innerText = card.attack;
+			$('#cardDefenceId')[0].innerText = card.defence;
+       	}
+	});
+}
 
 function fillCurrentCard(imgUrlFamily,familyName,imgUrl,name,description,hp,energy,attack,defence){
     //FILL THE CURRENT CARD
@@ -22,6 +45,7 @@ function fillCurrentCard(imgUrlFamily,familyName,imgUrl,name,description,hp,ener
     $('#cardAttackId')[0].innerText=attack+" Attack";
     $('#cardDefenceId')[0].innerText=defence+" Defence";
 };
+
 
 
 

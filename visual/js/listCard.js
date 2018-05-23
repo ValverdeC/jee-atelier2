@@ -1,45 +1,71 @@
 $(document ).ready(function(){
-    fillCurrentCard("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/DC_Comics_logo.png/280px-DC_Comics_logo.png","DC comics","http://www.guinnessworldrecords.com/images/superlative/superheroes/GWR-Superheroes-SUPERMAN.svg","SUPERMAN","The origin story of Superman relates that he was born Kal-El on the planet Krypton, before being rocketed to Earth as an infant by his scientist father Jor-El, moments before Krypton's destruction. Discovered and adopted by a farm couple from Kansas, the child is raised as Clark Kent and imbued with a strong moral compass. Early in his childhood, he displays various superhuman abilities, which, upon reaching maturity, he resolves to use for the benefit of humanity through a 'Superman' identity.",50,100,17,8,100);
+
+    var cards = getCards();
+
+    if(cards[0])
+        fillCurrentCard(cards[0]);
 
 
-    for(i=0;i<5;i++){
-        addCardToList("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/DC_Comics_logo.png/280px-DC_Comics_logo.png","DC comics","http://www.guinnessworldrecords.com/images/superlative/superheroes/GWR-Superheroes-SUPERMAN.svg","SUPERMAN","The origin story of Superman relates that he was born Kal-El on the planet Krypton, before being rocketed to Earth as an infant by his scientist father Jor-El, moments before Krypton's destruction. Discovered and adopted by a farm couple from Kansas, the child is raised as Clark Kent and imbued with a strong moral compass. Early in his childhood, he displays various superhuman abilities, which, upon reaching maturity, he resolves to use for the benefit of humanity through a 'Superman' identity.",50,100,17,80,100);
+    for(var i in cards){
+        var card = cards[i];
+        addCardToList(card);
     }
 
 
 });
 
+function getCards(){
+    var cards = []
 
 
+	$.ajax({
+		url: 'http://localhost:8080/WebServiceCard/rest/servicescard/findAll',
+		type: 'GET',
+		//Placer info
+		success : function(resultat, statut){
+			cards = resultat;
+       	},
+       	error : function(resultat,status) {
+       	    alert("Une erreur est survenue");
+       	},
+       	complete : function(){
+       	    return cards;
+       	}
+	});
 
-function fillCurrentCard(imgUrlFamily,familyName,imgUrl,name,description,hp,energy,attack,defence,price){
+}
+
+
+function fillCurrentCard(card){
     //FILL THE CURRENT CARD
-    $('#cardFamilyImgId')[0].src=imgUrlFamily;
-    $('#cardFamilyNameId')[0].innerText=familyName;
-    $('#cardImgId')[0].src=imgUrl;
-    $('#cardNameId')[0].innerText=name;
-    $('#cardDescriptionId')[0].innerText=description;
-    $('#cardHPId')[0].innerText=hp+" HP";
-    $('#cardEnergyId')[0].innerText=energy+" Energy";
-    $('#cardAttackId')[0].innerText=attack+" Attack";
-    $('#cardDefenceId')[0].innerText=defence+" Defence";
-    $('#cardPriceId')[0].innerText=price+" $";
+    if(card){
+        $('#cardFamilyImgId')[0].src= card.imgUrlFamily;
+        $('#cardFamilyNameId')[0].innerText= card.familyName;
+        $('#cardImgId')[0].src=card.imgUrl;
+        $('#cardNameId')[0].innerText=card.name;
+        $('#cardDescriptionId')[0].innerText=card.description;
+        $('#cardHPId')[0].innerText=card.hp+" HP";
+        $('#cardEnergyId')[0].innerText=card.energy+" Energy";
+        $('#cardAttackId')[0].innerText=card.attack+" Attack";
+        $('#cardDefenceId')[0].innerText=card.defence+" Defence";
+        $('#cardPriceId')[0].innerText=card.price+" $";
+    }
 };
 
 
-function addCardToList(imgUrlFamily,familyName,imgUrl,name,description,hp,energy,attack,defence,price){
+function addCardToList(card){
     
     content="\
     <td> \
-    <img  class='ui avatar image' src='"+imgUrl+"'> <span>"+name+" </span> \
+    <img  class='ui avatar image' src='"+card.imgUrl+"'> <span>"+card.name+" </span> \
    </td> \
-    <td>"+description+"</td> \
-    <td>"+familyName+"</td> \
-    <td>"+hp+"</td> \
-    <td>"+energy+"</td> \
-    <td>"+attack+"</td> \
-    <td>"+defence+"</td> \
-    <td>"+price+"$</td>\
+    <td>"+card.description+"</td> \
+    <td>"+card.familyName+"</td> \
+    <td>"+card.hp+"</td> \
+    <td>"+card.energy+"</td> \
+    <td>"+card.attack+"</td> \
+    <td>"+card.defence+"</td> \
+    <td>"+card.price+"$</td>\
     <td>\
         <div class='ui vertical animated button' tabindex='0'>\
             <div class='hidden content'>Sell</div>\
