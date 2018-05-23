@@ -3,9 +3,9 @@ package com.sample.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
-import com.sample.model.User;
+import com.sample.model.Card;
 
 @NoRepositoryBean
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface CardRepository extends JpaRepository<Card, Integer> {
 
 }

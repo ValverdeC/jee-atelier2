@@ -1,7 +1,6 @@
 package com.sample.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +15,8 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	private List<User> users = new ArrayList<> (Arrays.asList(
-			new User("Coco", 0),
-			new User("Lolo", 1)
-		));
-	
 	public User get(int id) {
-		return this.repository.getById(id);
+		return this.repository.findOne(id);
 	}
 	
 	public List<User> getAll() {
@@ -37,17 +31,11 @@ public class UserService {
 	}
 	
 	public User update(User user, int id) {
-		for (int i = 0; i < this.users.size(); i++) {
-		    User usr = this.users.get(i);
-		    if (usr.getId() == id) {
-		    	this.users.set(i, user);
-		    }
-		}
-		return user;
+		return this.repository.save(user);
 	}
 
 	public void delete(int id) {
-		this.users.remove(id);
+		this.repository.delete(id);
 	}
 
 }
