@@ -35,6 +35,11 @@ function getCards(){
 
 }
 
+function sellCard(id){
+
+    //TODO
+}
+
 
 function fillCurrentCard(card){
     //FILL THE CURRENT CARD
