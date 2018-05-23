@@ -15,6 +15,10 @@ public class CardService {
 	@Autowired
 	private CardRepository repository;
 	
+	public Card getById(int id) {
+		return this.repository.findOne(id);
+	}
+	
 	public List<Card> getAll() {
 		List<Card> cards = new ArrayList<>();
 		this.repository.findAll()

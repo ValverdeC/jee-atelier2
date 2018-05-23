@@ -29,7 +29,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="user/{id}")
-	public User addUser(@RequestBody User user, @PathVariable int id) {
+	public User updateUser(@RequestBody User user, @PathVariable int id) {
 		return this.service.update(user, id);
 	}
 	
@@ -38,8 +38,8 @@ public class UserController {
 		this.service.delete(id);
 	}
 	
-	@RequestMapping("/user/{id}")
+	@RequestMapping("user/{id}")
 	public User getUserById(@PathVariable int id) {
-		return this.service.get(id);
+		return this.service.getById(id);
 	}
 }
