@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "Card")
 public class Card implements Serializable{
 	
+	// Id auto-généré
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,6 +48,9 @@ public class Card implements Serializable{
 	@Column(name = "defence")
 	private int defence;
 	
+	/**
+	 * Lien entre une carte et un utilisateur
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
