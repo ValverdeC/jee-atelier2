@@ -1,5 +1,6 @@
 package com.sample.service;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,61 +13,58 @@ import com.sample.repository.UserRepository;
 @Service
 public class UserService {
 
-
-	
 	@Autowired
-	private UserRepository repository;
-	
-	/**
-	 * Récupération d'un user par son id
-	 * 
-	 * @param id
-	 * @return User
-	 */
-	public User getById(int id) {
-		return this.repository.findOne(id);
-	}
-	
-	/**
-	 * Récupération de tous les users
-	 * 
-	 * @return List<User>
-	 */
-	public List<User> getAll() {
+	private UserRepository userRepository;
+
+	@Autowired
+	private CardService cardService;
+
+	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<>();
-		this.repository.findAll()
-			.forEach(users::add);
+		userRepository.findAll().forEach(users::add);
 		return users;
 	}
-	
-	/**
-	 * Ajout d'un user
-	 * 
-	 * @param user
-	 * @return User
-	 */
-	public User add(User user) {
-		return this.repository.save(user);
-	}
-	
-	/**
-	 * Modification d'un user par son id
-	 * 
-	 * @param user
-	 * @param id
-	 * @return User
-	 */
-	public User update(User user, int id) {
-		return this.repository.save(user);
+
+	public User getUser(String id) {
+		return userRepository.findOne(Integer.valueOf(id));
 	}
 
-	/**
-	 * Suppression d'un user par son id
-	 * 
-	 * @param id
-	 */
-	public void delete(int id) {
-		this.repository.delete(id);
+	public String addUser(User user) {
+		user.setCards(cardService.getRandomCards(5));
+		SecureRandom random = new SecureRandom();
+		String key = getSaltString();
+		user.setToken(key);
+		userRepository.save(user);
+		return user.getToken();
+	}
+
+	public void updateUser(User poney) {
+		userRepository.save(poney);
+	}
+
+	public void deleteUser(String id) {
+		userRepository.delete(Integer.valueOf(id));
+	}
+
+	public User getUserByEmailAndPassword(String email, String password) {
+		return userRepository.findByEmailAndPassword(email, password);
+	}
+
+	public User getUserByToken(String token) {
+		return userRepository.findByToken(token);
+	}
+
+	protected String getSaltString() {
+		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		StringBuilder salt = new StringBuilder();
+		SecureRandom rnd = new SecureRandom();
+		while (salt.length() < 32) { // length of the random string.
+			int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+			salt.append(SALTCHARS.charAt(index));
+		}
+		String saltStr = salt.toString();
+		return saltStr;
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.sample.service;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import com.sample.repository.UserRepository;
 public class CardService {
 
 	@Autowired
-	private CardRepository repository;
+	private CardRepository cardrepository;
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -27,7 +28,7 @@ public class CardService {
 	 * @return Card
 	 */
 	public Card getById(int id) {
-		return this.repository.findOne(id);
+		return this.cardrepository.findOne(id);
 	}
 	
 	/**
@@ -37,7 +38,7 @@ public class CardService {
 	 */
 	public List<Card> getAll() {
 		List<Card> cards = new ArrayList<>();
-		this.repository.findAll()
+		this.cardrepository.findAll()
 			.forEach(cards::add);
 		return cards;
 	}
@@ -53,7 +54,7 @@ public class CardService {
 		 User user = this.userRepository.findOne(id);
 		 if (user != null) {
 			 card.setUser(user);
-			 return this.repository.save(card);
+			 return this.cardrepository.save(card);
 		 } else {
 			 throw new ResourceNotFoundException("UserId " + id + " not found");
 		 }
@@ -67,7 +68,7 @@ public class CardService {
 	 * @return Card
 	 */
 	public Card update(Card card, int id) {
-		return this.repository.save(card);
+		return this.cardrepository.save(card);
 	}
 
 	/**
@@ -76,11 +77,25 @@ public class CardService {
 	 * @param id
 	 */
 	public void delete(int id) {
-		this.repository.delete(id);
+		this.cardrepository.delete(id);
 	}
 
     public Card getByName(String name) {
 
 		return null;//this.repository.findByName(name);
     }
+
+	public List<Card> getRandomCards(int numberOfCards) {
+		List<Card> randomCards = new ArrayList<>();
+		List<Card> cards = new ArrayList<>();
+		cardrepository.findAll().forEach(cards::add);
+
+		SecureRandom rand = new SecureRandom();
+		int sizeMin = Math.min(numberOfCards, cards.size());
+		for (int i = 0; i < sizeMin; i++) {
+			randomCards.add( cards.remove( rand.nextInt( cards.size() ) ));
+		}
+
+		return randomCards;
+	}
 }
