@@ -1,15 +1,14 @@
 $(document ).ready(function(){
     $("#playButtonId").click(function(){
-        alert("Play button clicked ");
-        //TO DO
+        window.location = "formSample.html";
     });    
     $("#buyButtonId").click(function(){
-        alert("Buy button clicked ");
-        //TO DO
+        //alert("Buy button clicked ");
+        window.location = "searchCard.html";
     });    
     $("#sellButtonId").click(function(){
-        alert("Sell button clicked ");
-        //TO DO
+        //alert("Sell button clicked ");
+        window.location = "cardList.html";
     });    
 });
 
