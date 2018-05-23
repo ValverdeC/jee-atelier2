@@ -1,24 +1,42 @@
 package com.sample.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Card {
+@Table(name = "Card")
+public class Card implements Serializable{
 	
 	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	@Column(name = "name")
 	private String name;
+
+	@Column(name = "description")
 	private String description;
+
+	@Column(name = "imgUrl")
 	private String imgUrl;
+
+	@Column(name = "family")
 	private String family;
+
+	@Column(name = "affinity")
 	private String affinity;
+
+	@Column(name = "hp")
 	private int hp;
+
+	@Column(name = "energy")
 	private int energy;
+
+	@Column(name = "attack")
 	private int attack;
+
+	@Column(name = "defence")
 	private int defence;
 	
 	public Card(String name, String description, String imgUrl, String family, String affinity, int hp, int energy,

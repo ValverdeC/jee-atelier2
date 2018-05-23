@@ -39,6 +39,7 @@ public class CardService {
 	}
 
     public Card getByName(String name) {
-		return this.repository.findByName(name);
+
+		return null;//this.repository.findByName(name);
     }
 }

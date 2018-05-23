@@ -19,7 +19,7 @@ function getCards(){
 
 
 	$.ajax({
-		url: 'http://localhost:8080/WebServiceCard/rest/servicescard/findAll',
+		url: 'http://localhost:8080/cards',
 		type: 'GET',
 		//Placer info
 		success : function(resultat, statut){
