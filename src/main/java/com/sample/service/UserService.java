@@ -15,7 +15,7 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 	
-	public User get(int id) {
+	public User getById(int id) {
 		return this.repository.findOne(id);
 	}
 	
